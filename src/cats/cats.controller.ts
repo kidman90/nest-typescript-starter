@@ -2,6 +2,7 @@ import { Controller, Get, HttpCode, Post, Body, Param, HttpException, HttpStatus
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
+import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
 
 @Controller('cats')
 export class CatsController {
@@ -16,5 +17,11 @@ export class CatsController {
   @Get()
   async findAll(): Promise<Cat[]> {
     return this.catsService.findAll();
+  }
+
+  @Get(':id')
+  async findOne(@Param('id', new ParseIntPipe()) id) {
+    // logic
+    return 'Your id is an integer';
   }
 }
